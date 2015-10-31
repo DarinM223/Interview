@@ -16,14 +16,14 @@ exports = module.exports = {};
  * { x: 10, y: 12, z: 15 }, { x: 10, y: 10, z: 8 }]
  */
 exports.calcFuel = function calcFuel(route) {
-  var maxHeight = route[0].y;
+  var maxHeight = route[0].z;
 
   for (var i = 0; i < route.length; i++) {
-    if (route[i].y > maxHeight) {
-      maxHeight = route[i].y;
+    if (route[i].z > maxHeight) {
+      maxHeight = route[i].z;
     }
   }
 
-  return maxHeight - route[0].y;
-};
+  return maxHeight - route[0].z;
+}
 
