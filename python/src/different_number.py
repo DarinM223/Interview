@@ -1,3 +1,4 @@
+import sys
 
 def different_number(l, n):
     """
@@ -11,6 +12,9 @@ def different_number(l, n):
 
     hash_table = []
 
+    if len(l) >= 2 * sys.maxint:
+        return None
+
     # create hash table from 0 to n
     for i in range(0, n+1):
         hash_table.append(0)
@@ -23,4 +27,6 @@ def different_number(l, n):
     for i in range(0, n+1):
         if hash_table[i] == 0:
             return i
+
+    return None
 

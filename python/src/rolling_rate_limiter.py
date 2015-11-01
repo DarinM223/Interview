@@ -24,18 +24,22 @@ class RateLimiter:
         Calls the expensive function only if it doesn't pass the rate limit
         """
 
-        lastTime = self.queue[0]
-        currTime =  datetime.datetime.now().microsecond
+        currTime =  datetime.now().microsecond
 
-        # remove values from back of queue until the difference between the last time and 
-        # the current time is <= one minute
-        while len(self.queue) > 0 and currTime - lastTime > RateLimiter.ONE_MINUTE:
-            self.queue.popleft()
+        if len(self.queue) > 0:
             lastTime = self.queue[0]
+
+            # remove values from back of queue until the difference between the last time and 
+            # the current time is <= one minute
+            while len(self.queue) > 0 and currTime - lastTime > RateLimiter.ONE_MINUTE:
+                self.queue.popleft()
+                lastTime = self.queue[0]
         
         # add current time to queue if it doesn't hit rate limit
         if len(self.queue) >= self.maxTimes:
             return
         else:
+            # call function
+            self.fn()
             self.queue.append(currTime)
 
